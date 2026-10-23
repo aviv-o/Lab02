@@ -1,0 +1,20 @@
+{
+    "chart_title": "NFL Wins by Season",
+    "data_points": [
+        {"label": "Bears", "season": 2021, "value": 6},
+        {"label": "Bears", "season": 2022, "value": 3},
+        {"label": "Bears", "season": 2023, "value": 7},
+        {"label": "Bears", "season": 2024, "value": 5},
+        {"label": "Bears", "season": 2025, "value": 11},
+        {"label": "49ers", "season": 2021, "value": 10},
+        {"label": "49ers", "season": 2022, "value": 13},
+        {"label": "49ers", "season": 2023, "value": 12},
+        {"label": "49ers", "season": 2024, "value": 6},
+        {"label": "49ers", "season": 2025, "value": 12},
+        {"label": "Texans", "season": 2021, "value": 4},
+        {"label": "Texans", "season": 2022, "value": 3},
+        {"label": "Texans", "season": 2023, "value": 10},
+        {"label": "Texans", "season": 2024, "value": 10},
+        {"label": "Texans", "season": 2025, "value": 12}
+    ]
+}
