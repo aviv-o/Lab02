@@ -42,6 +42,12 @@ filtered = df[
     (df["label"] == st.session_state.team)
     & (df["season"] >= st.session_state.start)
 ]
+logos = {
+    "Bears": "images/bearslogo.png",
+    "49ers": "images/49erslogo.png",
+    "Texans": "images/texanslogo.png",
+}
+st.image(logos[st.session_state.team], width=100)
 st.line_chart(filtered.set_index("season")["value"])
 
 
