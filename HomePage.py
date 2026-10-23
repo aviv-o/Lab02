@@ -6,29 +6,29 @@ import streamlit as st
 
 # st.set_page_config() is used to configure the page's appearance in the browser tab.
 # It's good practice to set this as the first Streamlit command in your script.
+# Import Streamlit
+import streamlit as st
+
 st.set_page_config(
-    page_title="Homepage",  # The title that appears in the browser tab
-    page_icon="🏠",         # An emoji that appears as the icon in the browser tab
+    page_title="Homepage",
+    page_icon="🏈",
 )
 
 # WELCOME PAGE TITLE
-st.title("Welcome to the Data Dashboard! 📊")
+st.title("🏈 Web Development Lab02")
 
 # INTRODUCTORY TEXT
 st.write("""
-This application is designed to collect and visualize data.
-You can navigate to the different pages using the sidebar on the left.
+CS 1301 - Web Development - Section C
+Aviv Oshri
 
-### How to use this app:
-- **Survey Page**: Go here to input new data into our CSV file.
-- **Visuals Page**: Go here to see the data visualized in different graphs.
+Welcome to my Streamlit Web Development Lab02 app! You can navigate
+between the pages using the sidebar on the left. The pages are:
 
-This project is part of CS 1301's Lab 2.
+1. **Visuals**: Explore NFL wins per season (2021-2025) for the Bears,
+   49ers, and Texans. A bar chart shows each team's total wins, and a
+   line chart lets you pick a team and a starting season to see how its
+   wins changed over time.
+2. **Survey**: Enter your own data through the survey form. Your answers
+   are saved and used for the graphs from the survey data.
 """)
-
-# OPTIONAL: ADD AN IMAGE
-# 1. Navigate to the 'images' folder in your Lab02 directory.
-# 2. Place your image file (e.g., 'welcome_image.png') inside that folder.
-# 3. Uncomment the line below and change the filename to match yours.
-#
-# st.image("images/welcome_image.png")
