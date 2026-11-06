@@ -52,4 +52,40 @@ st.line_chart(filtered.set_index("season")["value"])
 
 
 # PART 2: GRAPHS FROM data.csv
-# --- YOUR CODE GOES HERE ---
+st.header("Survey Results")
+
+try:
+    survey = pd.read_csv("data.csv")
+except (FileNotFoundError, pd.errors.EmptyDataError):
+    survey = pd.DataFrame(columns=["team", "player", "games_watched"])
+
+if survey.empty:
+    st.info("No survey responses yet. Fill out the Survey page first.")
+else:
+    # Static chart (advanced, Plotly pie)
+    fan_counts = survey["team"].value_counts().reset_index()
+    fan_counts.columns = ["team", "fans"]
+
+    pie = px.pie(
+        fan_counts, names="team", values="fans",
+        title="Favorite Teams Among Survey Respondents",
+    )
+    st.plotly_chart(pie)
+
+    # Dynamic chart (bar)
+    st.subheader("Games Watched Last Season")
+    team_options = ["All"] + sorted(survey["team"].unique())
+    st.selectbox("Show fans of:", team_options, key="p2_team")
+    st.slider("Minimum games watched", 0, 17, 0, key="p2_min")
+
+    filtered = survey[survey["games_watched"] >= st.session_state.p2_min]
+    if st.session_state.p2_team != "All":
+        filtered = filtered[filtered["team"] == st.session_state.p2_team]
+
+    if filtered.empty:
+        st.warning("No responses match those filters.")
+    else:
+        col1, col2 = st.columns(2)
+        col1.metric("Mean games watched", round(filtered["games_watched"].mean(), 1))
+        col2.metric("Median games watched", filtered["games_watched"].median())
+        st.bar_chart(filtered, x="player", y="games_watched")
