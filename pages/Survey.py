@@ -12,34 +12,42 @@ st.set_page_config(
 )
 
 # PAGE TITLE AND USER DIRECTIONS
-st.title("Data Collection Survey 📝")
-st.write("Please fill out the form below to add your data to the dataset.")
+st.title("NFL Fan Survey 🏈")
+st.write("Please fill out the form below to add your answers to the dataset.")
 
 # DATA INPUT FORM
-# 'st.form' creates a container that groups input widgets.
-# The form is submitted only when the user clicks the 'st.form_submit_button'.
-# This is useful for preventing the app from re-running every time a widget is changed.
-with st.form("survey_form"):
-    # Create text input widgets for the user to enter data.
-    # The first argument is the label that appears above the input box.
-    category_input = st.text_input("Enter a category:")
-    value_input = st.text_input("Enter a corresponding value:")
+TEAMS = ["Bears", "49ers", "Texans", "Chiefs", "Eagles", "Cowboys",
+         "Packers", "Bills", "Other"]
+
+with st.form("survey_form", clear_on_submit=True):
+    team_input = st.selectbox("What's your favorite NFL team?", TEAMS)
+    player_input = st.text_input("Who's your favorite player?")
+    games_input = st.slider("How many games of your team did you watch last season?", 0, 17, 8)
 
     # The submit button for the form.
     submitted = st.form_submit_button("Submit Data")
 
     # This block of code runs ONLY when the submit button is clicked.
     if submitted:
-        # --- YOUR LOGIC GOES HERE ---
-        # TO DO:
-        # 1. Create a new row of data from 'category_input' and 'value_input'.
-        # 2. Append this new row to the 'data.csv' file.
-        #    - You can use pandas or Python's built-in 'csv' module.
-        #    - Make sure to open the file in 'append' mode ('a').
-        #    - Don't forget to add a newline character '\n' at the end.
-        
-        st.success("Your data has been submitted!")
-        st.write(f"You entered: **Category:** {category_input}, **Value:** {value_input}")
+        if player_input.strip() == "":
+            st.warning("Please enter a player's name.")
+        else:
+            # 1. Create a new row of data from the three inputs.
+            new_row = pd.DataFrame({
+                "team": [team_input],
+                "player": [player_input.strip().title()],
+                "games_watched": [games_input],
+            })
+
+            # 2. Add it to the existing data and write the file back.
+            if os.path.exists("data.csv") and os.path.getsize("data.csv") > 0:
+                updated = pd.concat([pd.read_csv("data.csv"), new_row], ignore_index=True)
+            else:
+                updated = new_row
+            updated.to_csv("data.csv", index=False)
+
+            st.success("Your data has been submitted!")
+            st.write(f"You entered: **Team:** {team_input}, **Player:** {player_input}, **Games watched:** {games_input}")
 
 
 # DATA DISPLAY
